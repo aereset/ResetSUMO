@@ -2,7 +2,7 @@
 Programa: Robot Sumo. Movimiento de los motores
 Autora: Irene 
 Estado: En proceso.
-Actualizado: 18/09/22
+Actualizado: 19/09/22
 /*/
 
 //Librerías Arduino
@@ -60,3 +60,13 @@ void mov(char motor, int Dir, int PWM) {
   }
 }
 /*------------------------------------------*/
+
+void setup() {
+  // put your setup code here, to run once:
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
