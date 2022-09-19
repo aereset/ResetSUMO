@@ -69,7 +69,7 @@ void mov(char motor, int Dir, int PWM) {
 
   //Void de la casuística del robot -> Optimización
   void casuistica_Robot(int va, int vb, char a, char b ){ //va -> motor que aumenta velocidad
-  //Velocidad del motor que acelera
+  //Motor que aumenta la velocidad
       if(va>=0 && va< 255){ //Si va se encuentra en el intervalo de 0 a 255
         mov(a, 1, va);}
 
@@ -78,7 +78,7 @@ void mov(char motor, int Dir, int PWM) {
           
       //Nota: va no puede ser negativo ya que Vm>0, 127.5>Giro>0 y ambos términos se suman
 
-    //Velocidad del motor que disminuye
+    //Motor que disminuye la velocidad
      if(vb>=0 && vb<=255){ //vb es positivo. 
       mov(b, 1, vb);}
       
