@@ -65,63 +65,30 @@ void mov(char motor, int Dir, int PWM) {
 
 /*------------------------------------------*/
 //FUNCIÓN PARA CONTROLAR EL ROBOT
-
-
-  //Void de la casuística del robot -> Optimización
-  void casuistica_Robot(int va, int vb, char a, char b ){ //va -> motor que aumenta velocidad
-  //Motor que aumenta la velocidad
-      if(va>=0 && va< 255){ //Si va se encuentra en el intervalo de 0 a 255
-        mov(a, 1, va);}
-
-      else{ // Si va se encuentra en el intervalo de más de 255
-        mov(a, 1, 255);}
-          
-      //Nota: va no puede ser negativo ya que Vm>0, 127.5>Giro>0 y ambos términos se suman
-
-    //Motor que disminuye la velocidad
-     if(vb>=0 && vb<=255){ //vb es positivo. 
-      mov(b, 1, vb);}
-      
-     else{
-      if(vb<0 && vb>=-255){ //vb es negativo
-        mov(b, 0, -vb);}
-        
-      else{
-        mov(b, 0, 255);} //vb tiene el valor negativo máximo  
-         }
-
-       //Nota: vb no va a ser nunca superior a 255 ya que siempre resta a vm
-    } //Fin del bucle de casuística
-
-
-
-
 void robot(int Vm, int Giro) {
   /* Variables:
         - Vm: velocidad media del motor). Velocidad 
         - Giro: valor para el giro del robot. Criterio a utilizar:
              (0, 255) ~ (0, 360) (Grados) 
     */
-
+    
     int Grados = map(Giro, 0, 255, 0, 359); //Hallamos la equivalencia de Giro en grados
     int vr, vi;
 
     if(Grados >= 0 && Grados <= 180){ //CASO 1: HAY QUE GIRAR A LA IZQUIERDA
-      vr = Vm+Giro; 
-      vi = Vm-map(Giro, 0, 255, 0, 510); //Para ajustar un poco el tema del giro, en sentido de que a los 180 grados pueda girar sobre sí mismo
+      vr = Vm+Giro*(255-Vm)/127.5; 
+      vi = Vm-Giro*(Vm/127.5); 
 
-      casuistica_Robot(vr, vi, 'R', 'L');
-         
      } //Fin del caso de girar a la izquierda
 
     if(Grados>180 && Grados<=360){ //CASO 2: HAY QUE GIRAR A LA DERECHA
-      vi = Vm+(255-Giro);
-      vr = Vm-map(255-Giro, 0, 255, 0, 510);
-
-      casuistica_Robot(vi, vr, 'L', 'R');
-         
+      vi = Vm+(Giro-127.5)*(255-Vm)/127.5;
+      vr = Vm-(Giro-127.5)*(Vm/127.5);
+     
     } //Fin del caso de girar a la derecha
-    
+
+    mov('R', 1, vr);
+    mov('L', 1, vi);
 
 } //Fin del bucle de control robot
 
