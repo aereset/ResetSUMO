@@ -2,14 +2,15 @@
 #include "pinoutMando.h"
 #include "mando.h"
 
+ResetMando mando; 
+
 void setup() {
-
-  Mando mando();
-  RF24 rfMando(CE,CSN);
-
+  Serial.begin(9600); 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
+  mando.leerInputs();
+  delay(100);
 
 }
