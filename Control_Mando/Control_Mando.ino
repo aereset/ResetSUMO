@@ -1,4 +1,10 @@
-#include <RF24.h>
+/*/
+Programa: Robot Sumo. Programa para el mando de Reset
+Autor: Alberto Sevilla
+Actualizado: 21/09/22
+/*/
+
+
 #include "pinoutMando.h"
 #include "mando.h"
 
@@ -11,6 +17,7 @@ void setup() {
 void loop() {
 
   mando.leerInputs();
-  delay(100);
+  mando.enviarInputs();
+  delay(1);
 
 }
