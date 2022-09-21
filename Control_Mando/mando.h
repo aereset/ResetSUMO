@@ -1,39 +1,43 @@
-#ifndef MANDO_H
-#define MANDO_H
+/*/
+Programa: Robot Sumo. Programa para el mando de Reset. Encabezado de clase ResetMando
+Autor: Alberto Sevilla
+Actualizado: 21/09/22
+/*/
 
-  #include <Arduino.h>
+#pragma once
+
+  #include <RF24.h>
   #include "pinoutMando.h"
 
   class ResetMando
   { 
     public:
 
-      ResetMando(); //Constructor
-      RF24 rf;
+      ResetMando(); //Constructor, initializer of RF module
+      
       void leerInputs();
+      void enviarInputs();
       void leerCanal();
       
 
     private:
-
+      
+      RF24 rf;
       uint8_t _canal[5] = {0,0,0,0,0};
 
-      uint8_t x1;
-      uint8_t y1;
-      uint8_t x2;
-      uint8_t y2;
+      uint8_t _jLx;
+      uint8_t _jLy;
+      uint8_t _jRx;
+      uint8_t _jRy;
 
-      bool btnA;
-      bool btnB;
-      bool btnC;
-      bool btnD;
+      bool _btnA;
+      bool _btnB;
+      bool _btnC;
+      bool _btnD;
 
-      uint8_t dial;
+      uint8_t _dial;
 
-      bool flp1;
-      bool flp2;
+      bool _flip1;
+      bool _flip2;
          
   };
-
-
-#endif
