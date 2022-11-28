@@ -1,27 +1,23 @@
-/*/
-Programa: Robot Sumo. 
-          Funciones de la librería robotSumo.h
-Autor: Irene Rodríguez
-Actualizado: 25/11/22
-/*/
+#define RM 7 
+#define RMB 6 
+#define PWMR 5 
+#define LM 10 
+#define LMB 8 
+#define PWML 9
 
-#include <RF24.h> //Librería de <RF24>
-#include "pinout.h" //Libería de pines
-
-/*------------------------------------------*/
-//Iniciar motores
-void setupMotores(){
+void setupMotorres(){
   pinMode(RM, OUTPUT);
   pinMode(RMB, OUTPUT);
   pinMode(LM, OUTPUT);
   pinMode(LMB, OUTPUT);
   pinMode(PWMR, OUTPUT);
   pinMode(PWML, OUTPUT);
+  Serial.begin(9600);
 }
-/*------------------------------------------*/
+//---
 
-/*------------------------------------------*/
-//MOsLMIENTO DE LOS MOTORES
+
+//---
 void moveMotor(char motor, int Dir, int PWM) {
   /* Variables:
         - Motor ('L', 'R'): indica el motor.
@@ -54,40 +50,46 @@ void moveMotor(char motor, int Dir, int PWM) {
    analogWrite(PWM_PIN, PWM);
 
 }
-/*------------------------------------------*/
-
-/*------------------------------------------*/
-//CONTROL DEL ROBOT.
+//---
 void robot(uint8_t Sm, uint8_t Alpha){ //Sm -> Velocidad media   Alpha -> Ángulo medio 
     float sR, sL;
     float Smp = Sm; float Alphap = Alpha; //Pasar datos a tipo float. Necesarios para las gráficas.
     
     if(Smp<127){ //Hacia atrás
-      sR =(Smp-127.0)/127.0*(Alphap-255.0); 
-      //Condiciones añadidas en las pruebas
+      sR =(Smp-127.0)/127.0*(Alphap-255.0);
       if(sR >= 255) { sR = 255;}
       if(sR <= 0) { sR = 0;}
       sL = -(Smp-127.0)/127.0*(Alphap);
-      //Condiciones añadidas en las pruebas
       if(sL >= 255) { sL = 255;}
       if(sL <= 0) { sL = 0;}
       moveMotor('R', 0, sR); moveMotor('L', 0, sL); //Conf del motor
     }
 
     else{ //Hacia delante
-      sR = -(Smp-127.0)/127.0*(Alphap-255.0);
-      //Condiciones añadidas en las pruebas
+      sR = -(Smp-127.0)/127.0*(Alphap-255.0); 
       if(sR >= 255) { sR = 255;}
-      if(sR <= 0) { sR = 0;} 
+      if(sR <= 0) { sR = 0;}
       sL = (Smp-127.0)/127.0*Alphap;
-      //Condicioens añadidas en las pruebas
       if(sL >= 255) { sL = 255;}
       if(sL <= 0) { sL = 0;}
       moveMotor('R', 1, sR); moveMotor('L', 1, sL); //Conf del motor
     }
 
-    Serial.println("Alpha: " + String(Alpha) + " sR: " + String(sR) + " sL: " + String(sL)); //Pruebas
+    Serial.println("Alpha: " + String(Alpha) + " Speed: " + String(Sm) + " sR: " + String(sR) + " sL: " + String(sL)); //Pruebas
     
 }
-/*------------------------------------------*/
-      
+//---
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(A5, INPUT); //vrY Alpha
+  pinMode(A2, INPUT); //VrX Sm
+  setupMotorres();
+  }
+
+
+void loop() {
+  uint8_t Sm, Alpha;
+  Sm = map(analogRead(A2), 0, 1023, 0, 255);
+  Alpha = map(analogRead(A5), 0, 1023, 0, 255);
+  robot(Sm, Alpha);
+}
