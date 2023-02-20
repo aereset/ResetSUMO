@@ -1,11 +1,10 @@
-/*/
+/*
 Programa: Robot Sumo. Programa para el mando de Reset
 Autor: Alberto Sevilla
 Actualizado: 21/09/22
-/*/
+*/
 
 
-#include "pinoutMando.h"
 #include "resetMando.h"
 
 ResetMando mando; 
@@ -15,9 +14,7 @@ void setup() {
 }
 
 void loop() {
-
   mando.leerInputs();
   mando.enviarInputs();
   delay(1);
-
 }

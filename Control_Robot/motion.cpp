@@ -1,15 +1,14 @@
-/*/
+/*
 Programa: Robot Sumo. 
           Funciones de la librería robotSumo.h
 Autor: Irene Rodríguez
 Actualizado: 25/11/22
-/*/
+*/
 
 #include <RF24.h> //Librería de <RF24>
-#include "pinout.h" //Libería de pines
+#include "pinoutRobot.h" //Libería de pines
 
-/*------------------------------------------*/
-//Iniciar motores
+/// @brief Setup inicial.
 void setupMotores(){
   pinMode(RM, OUTPUT);
   pinMode(RMB, OUTPUT);
@@ -18,10 +17,11 @@ void setupMotores(){
   pinMode(PWMR, OUTPUT);
   pinMode(PWML, OUTPUT);
 }
-/*------------------------------------------*/
 
-/*------------------------------------------*/
-//MOsLMIENTO DE LOS MOTORES
+/// @brief Movimiento de los motores.
+/// @param char motor
+/// @param int Dir 
+/// @param int PWM 
 void moveMotor(char motor, int Dir, int PWM) {
   /* Variables:
         - Motor ('L', 'R'): indica el motor.
@@ -54,40 +54,42 @@ void moveMotor(char motor, int Dir, int PWM) {
    analogWrite(PWM_PIN, PWM);
 
 }
-/*------------------------------------------*/
 
-/*------------------------------------------*/
-//CONTROL DEL ROBOT.
+/// @brief Movimiento del robot.
+/// @param uint8_t Sm
+/// @param uint8_t Alpha 
 void robot(uint8_t Sm, uint8_t Alpha){ //Sm -> Velocidad media   Alpha -> Ángulo medio 
     float sR, sL;
     float Smp = Sm; float Alphap = Alpha; //Pasar datos a tipo float. Necesarios para las gráficas.
     
     if(Smp<127){ //Hacia atrás
-      sR =(Smp-127.0)/127.0*(Alphap-255.0); 
+      sR =(Smp-127.0)/127.0*(Alphap-255.0);
+
       //Condiciones añadidas en las pruebas
       if(sR >= 255) { sR = 255;}
       if(sR <= 0) { sR = 0;}
       sL = -(Smp-127.0)/127.0*(Alphap);
+
       //Condiciones añadidas en las pruebas
       if(sL >= 255) { sL = 255;}
       if(sL <= 0) { sL = 0;}
-      moveMotor('R', 0, sR); moveMotor('L', 0, sL); //Conf del motor
+      moveMotor('R', 0, sR); //Motor derecho
+      moveMotor('L', 0, sL); //Motor izquierdo
     }
 
     else{ //Hacia delante
       sR = -(Smp-127.0)/127.0*(Alphap-255.0);
+
       //Condiciones añadidas en las pruebas
       if(sR >= 255) { sR = 255;}
       if(sR <= 0) { sR = 0;} 
       sL = (Smp-127.0)/127.0*Alphap;
-      //Condicioens añadidas en las pruebas
+
+      //Condiciones añadidas en las pruebas
       if(sL >= 255) { sL = 255;}
       if(sL <= 0) { sL = 0;}
-      moveMotor('R', 1, sR); moveMotor('L', 1, sL); //Conf del motor
+      moveMotor('R', 1, sR); //Motor derecho
+      moveMotor('L', 1, sL); //Motor izquierdo
     }
-
-    Serial.println("Alpha: " + String(Alpha) + " sR: " + String(sR) + " sL: " + String(sL)); //Pruebas
-    
 }
-/*------------------------------------------*/
       
