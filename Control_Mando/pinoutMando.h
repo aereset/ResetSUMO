@@ -7,10 +7,10 @@ Actualizado: 21/09/22
 #pragma once
 
 //Joysticks
-#define JL_X A0     //Left joystick, x axis (analog in)
-#define JL_Y A1     //Left joystick, y axis (analog in)
-#define JR_X A6     //Right joystick, x axis (analog in)
-#define JR_Y A7     //Right joystick, y axis (analog in)
+#define JOYL_X A0     //Left joystick, x axis (analog in)
+#define JOYL_Y A1     //Left joystick, y axis (analog in)
+#define JOYR_X A6     //Right joystick, x axis (analog in)
+#define JOYR_Y A7     //Right joystick, y axis (analog in)
 
 //DIP for channel selection
 #define CHNL_0 4    //Digit 0 (analog in)

@@ -6,7 +6,7 @@ Actualizado: 21/09/22
 
 
 #include "pinoutMando.h"
-#include "mando.h"
+#include "resetMando.h"
 
 ResetMando mando; 
 

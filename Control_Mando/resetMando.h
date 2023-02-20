@@ -25,19 +25,21 @@ Actualizado: 21/09/22
       RF24 rf;
       uint8_t _canal[5] = {0,0,0,0,0};
 
-      uint8_t _jLx;
-      uint8_t _jLy;
-      uint8_t _jRx;
-      uint8_t _jRy;
+      uint8_t _joyLx;
+      uint8_t _joyLy;
+      uint8_t _joyRx;
+      uint8_t _joyRy;
 
-      bool _btnA;
-      bool _btnB;
-      bool _btnC;
-      bool _btnD;
+      uint8_t _btnA;
+      uint8_t _btnB;
+      uint8_t _btnC;
+      uint8_t _btnD;
 
       uint8_t _dial;
 
-      bool _flip1;
-      bool _flip2;
+      uint8_t _flip1;
+      uint8_t _flip2;
+
+      uint8_t _data[11];
          
   };
