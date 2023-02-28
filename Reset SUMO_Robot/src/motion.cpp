@@ -10,17 +10,17 @@ Actualizado: 25/11/22
 
 /// @brief Setup inicial.
 void setupMotores(){
-  pinMode(RM, OUTPUT);
+  pinMode(RMA, OUTPUT);
   pinMode(RMB, OUTPUT);
-  pinMode(LM, OUTPUT);
+  pinMode(LMA, OUTPUT);
   pinMode(LMB, OUTPUT);
   pinMode(PWMR, OUTPUT);
   pinMode(PWML, OUTPUT);
 }
 
 /// @brief Movimiento de los motores.
-/// @param char motor
-/// @param int Dir 
+/// @param char motor - Left: 'L', Right: 'R'
+/// @param int Dir - Forward: 1, Backwards: 0
 /// @param int PWM 
 void moveMotor(char motor, int Dir, int PWM) {
   /* Variables:
@@ -32,15 +32,15 @@ void moveMotor(char motor, int Dir, int PWM) {
   
   switch(motor){   //Control de los pines de los motores
     case 'L':
-          forward = LM;
-          backward = LMB;
-          PWM_PIN = PWML;
+          forward   = LMA;
+          backward  = LMB;
+          PWM_PIN   = PWML;
           break;
           
     case 'R':
-          forward = RM;
-          backward = RMB;
-          PWM_PIN = PWMR;
+          forward   = RMA;
+          backward  = RMB;
+          PWM_PIN   = PWMR;
           break;
   }
 
@@ -92,4 +92,3 @@ void robot(uint8_t Sm, uint8_t Alpha){ //Sm -> Velocidad media   Alpha -> Ángul
       moveMotor('L', 1, sL); //Motor izquierdo
     }
 }
-      
